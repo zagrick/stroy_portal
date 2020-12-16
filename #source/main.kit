@@ -1,0 +1,29 @@
+<div class="main container">
+    <div class="main__body">
+    	<a href="/">
+    		<img src="/img/logo.png" alt="logo">
+    	</a>
+        <button type="button" class="btn-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="main__search">
+	        <form>
+			   <p class="autocomplete">
+			   	<input type="text" name="autocomplete" placeholder="Хочу найти..." @blur="onBlur=true" @focus="onFocus=true;onBlur=false" v-model="autocomplete" @keyDown="keyDown"> 
+			   	<div class="autocomplete-items">
+			   		<div :class="currentFocus==index ? 'autocomplete-active' : ''" v-for="(i, index) in arr" v-if="onFocus && i.substr(0, autocomplete.length).toUpperCase() == autocomplete.toUpperCase()" @click="autocomplete = i; onFocus=false;">
+			   			<strong>{{i.substr(0,autocomplete.length)}}</strong>{{i.substr(autocomplete.length)}}
+			   		</div>
+			   	</div>
+			   	<button>
+			   		<img src="/img/search.svg" alt="search">
+			   	</button>
+			   </p>
+			</form>
+		</div>
+		<button class="main__list"><img src="/img/list.svg" alt="list">Список</button>
+		<a href="#" class="main__circle">A</a>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Пример</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper" id="app">
+    	<!-- @import 'header.kit' -->
+        <!-- @import 'main.kit' -->
+        <!-- @import 'footer.kit' -->
+    </div>
+    <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        new Vue({
+          data(){
+            return {
+                currentFocus: '',
+                autocomplete: '',
+                onBlur: true,
+                onFocus: false,
+                arr: ['Поиск1', 'Поиск2', 'Поиск3']
+            }
+          },
+          mounted() {
+            var vm = this;
+            document.addEventListener('click', function(e){
+                vm.onBlur ? vm.onFocus = false: false
+            });
+          },
+          methods: {
+            addActive(){
+                var vm = this;
+                if (!vm.array) return false;
+                if (vm.currentFocus>=vm.array.length) vm.currentFocus = 0;
+                if (vm.currentFocus<0) vm.currentFocus = (vm.array.length-1);
+            },
+            keyDown(e){
+                var vm = this;
+                if(e.keyCode == 40) {
+                    vm.currentFocus++;
+                    vm.addActive()
+                } else if (e.keyCode==38){
+                    vm.currentFocus--;
+                    vm.addActive()
+                }
+            }
+          }
+        }).$mount('#app')
+    </script>   
+</body>
+</html>

@@ -1,0 +1,1 @@
+let ibg=document.querySelector(".ibg"),btn=document.querySelector(".btn-burger"),span=btn.querySelectorAll("span"),flug=!0;btn.onclick=()=>{for(s of span)flug?s.classList.add("active"):s.classList.remove("active");flug=!flug};

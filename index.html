@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Пример</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper" id="app">
+<header class="header container">
+    <div class="header__body">
+        <div class="header__location">
+            <a href="#">Волгоградская область</a>
+        </div>
+        <div class="header__menu">
+            <a href="#">Тендеры</a>
+            <a href="#">База подрядчиков</a>
+            <a href="#" class="services">Другие сервисы</a>
+        </div>
+    </div>
+</header><div class="main container">
+    <div class="main__body">
+    	<a href="/">
+    		<img src="/img/logo.png" alt="logo">
+    	</a>
+        <button type="button" class="btn-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <div class="main__search">
+	        <form>
+			   <p class="autocomplete">
+			   	<input type="text" name="autocomplete" placeholder="Хочу найти..." @blur="onBlur=true" @focus="onFocus=true;onBlur=false" v-model="autocomplete" @keyDown="keyDown"> 
+			   	<div class="autocomplete-items">
+			   		<div :class="currentFocus==index ? 'autocomplete-active' : ''" v-for="(i, index) in arr" v-if="onFocus && i.substr(0, autocomplete.length).toUpperCase() == autocomplete.toUpperCase()" @click="autocomplete = i; onFocus=false;">
+			   			<strong>{{i.substr(0,autocomplete.length)}}</strong>{{i.substr(autocomplete.length)}}
+			   		</div>
+			   	</div>
+			   	<button>
+			   		<img src="/img/search.svg" alt="search">
+			   	</button>
+			   </p>
+			</form>
+		</div>
+		<button class="main__list"><img src="/img/list.svg" alt="list">Список</button>
+		<a href="#" class="main__circle">A</a>
+    </div>
+</div><footer class="footer">
+	<div class="container">
+        <div class="footer__body">
+
+        </div>
+    </div>
+</footer>    </div>
+    <script src="/js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
+    <script>
+        new Vue({
+          data(){
+            return {
+                currentFocus: '',
+                autocomplete: '',
+                onBlur: true,
+                onFocus: false,
+                arr: ['Поиск1', 'Поиск2', 'Поиск3']
+            }
+          },
+          mounted() {
+            var vm = this;
+            document.addEventListener('click', function(e){
+                vm.onBlur ? vm.onFocus = false: false
+            });
+          },
+          methods: {
+            addActive(){
+                var vm = this;
+                if (!vm.array) return false;
+                if (vm.currentFocus>=vm.array.length) vm.currentFocus = 0;
+                if (vm.currentFocus<0) vm.currentFocus = (vm.array.length-1);
+            },
+            keyDown(e){
+                var vm = this;
+                if(e.keyCode == 40) {
+                    vm.currentFocus++;
+                    vm.addActive()
+                } else if (e.keyCode==38){
+                    vm.currentFocus--;
+                    vm.addActive()
+                }
+            }
+          }
+        }).$mount('#app')
+    </script>   
+</body>
+</html>
